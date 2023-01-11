@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8051723526596918795
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1489776723396811467, guid: 336bd01a1a87845468003c0ac78de117, type: 3}
+      propertyPath: m_Name
+      value: CarNoturnSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 8342440582850611234, guid: 336bd01a1a87845468003c0ac78de117, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8342440582850611234, guid: 336bd01a1a87845468003c0ac78de117, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 13.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 8342440582850611234, guid: 336bd01a1a87845468003c0ac78de117, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 24.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 8342440582850611234, guid: 336bd01a1a87845468003c0ac78de117, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.30793408
+      objectReference: {fileID: 0}
+    - target: {fileID: 8342440582850611234, guid: 336bd01a1a87845468003c0ac78de117, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8342440582850611234, guid: 336bd01a1a87845468003c0ac78de117, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8342440582850611234, guid: 336bd01a1a87845468003c0ac78de117, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8342440582850611234, guid: 336bd01a1a87845468003c0ac78de117, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8342440582850611234, guid: 336bd01a1a87845468003c0ac78de117, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8342440582850611234, guid: 336bd01a1a87845468003c0ac78de117, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8342440582850611234, guid: 336bd01a1a87845468003c0ac78de117, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098182949206573105, guid: 336bd01a1a87845468003c0ac78de117, type: 3}
+      propertyPath: obstaclePrefab
+      value: 
+      objectReference: {fileID: 6084137480825180153, guid: 1ad3a09932374604fbcf3e6f0c2e9ceb, type: 3}
+    - target: {fileID: 9098182949206573105, guid: 336bd01a1a87845468003c0ac78de117, type: 3}
+      propertyPath: alternateObstaclePrefab
+      value: 
+      objectReference: {fileID: 9035126257056830490, guid: e3b8af5c0e2db9c4fac9a3a538778f29, type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 336bd01a1a87845468003c0ac78de117, type: 3}
