@@ -15,7 +15,7 @@ GameObject:
   m_Layer: 7
   m_Name: ObstacleTurner
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -47,7 +47,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.15074396, y: 0}
+  m_Offset: {x: -0.01678747, y: 0.005595207}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -58,7 +58,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.2409983, y: 1}
+  m_Size: {x: 1.4206911, y: 0.20538902}
   m_EdgeRadius: 0
 --- !u!50 &1615183224036288272
 Rigidbody2D:
@@ -95,3 +95,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleTypeFilter: 0000000001000000
   obstacleTurnDirection: {x: -1, y: 0}
+  turnChance: 100

@@ -1,5 +1,77 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2837706050864913660
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2507975912153158477}
+  - component: {fileID: 8295711394965597877}
+  - component: {fileID: 7561179403433253195}
+  m_Layer: 6
+  m_Name: ObstacleHitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2507975912153158477
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2837706050864913660}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6410121368124312945}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8295711394965597877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2837706050864913660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc8b140d721bbc2428bdcb1906327965, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnedTime: 0
+--- !u!61 &7561179403433253195
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2837706050864913660}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.030532122, y: -0.03718269}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4.5666666, y: 8.644444}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.0267467, y: 6.4552326}
+  m_EdgeRadius: 0
 --- !u!1 &7290951605285175169
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,7 +84,8 @@ GameObject:
   - component: {fileID: 1891755512836424547}
   - component: {fileID: 4799931395487813195}
   - component: {fileID: 5979476468618777741}
-  - component: {fileID: 1574226618865520809}
+  - component: {fileID: 9031280824428049168}
+  - component: {fileID: 1110226060910803945}
   m_Layer: 6
   m_Name: Car
   m_TagString: Obstacle
@@ -29,9 +102,10 @@ Transform:
   m_GameObject: {fileID: 7290951605285175169}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 3, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2507975912153158477}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -74,10 +148,10 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -247715309
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.07898474, a: 1}
+  m_Sprite: {fileID: 21300000, guid: b24134d5343a9cc4d89bc822727ead78, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -121,14 +195,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleType: 0
-  speed: 8
+  speed: 6.5
   canTurn: 1
   avoidHittingPlayer: 1
   avoidanceDeceleration: 20
-  warningSound: {fileID: 0}
-  hitSound: {fileID: 0}
+  warningSound: {fileID: 8300000, guid: f717b9bd4c42dd045ba25979d1eb5353, type: 3}
+  hitSound: {fileID: 8300000, guid: 9b77b63a01ebc22499ee1c1e10626b32, type: 3}
+  upSprite: {fileID: 21300000, guid: b24134d5343a9cc4d89bc822727ead78, type: 3}
+  downSprite: {fileID: 21300000, guid: 8760bafab429bf64d827567563717a29, type: 3}
+  leftSprite: {fileID: 21300000, guid: b7947e2f04f11e74db69ce19c3d1d07a, type: 3}
+  rightSprite: {fileID: 21300000, guid: 9df1b64ac21be4e4082c622246232aae, type: 3}
   moveDirection: {x: -1, y: 0}
---- !u!61 &1574226618865520809
+  currentSpeed: 0
+--- !u!61 &9031280824428049168
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,16 +220,30 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.011826873, y: 0.44193566}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 3.8232558, y: 7.2372093}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.775028, y: 1.7371547}
   m_EdgeRadius: 0
+--- !u!114 &1110226060910803945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7290951605285175169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed80fdf5b6ba0cf4c8d63f6c9f516588, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rewindTime: 5
+  snapShotInterval: 0.1
