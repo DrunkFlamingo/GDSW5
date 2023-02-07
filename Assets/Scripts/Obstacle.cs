@@ -10,12 +10,12 @@ public class Obstacle : MonoBehaviour
 
     [Header("Obstacle Settings")]
     [SerializeField] private ObstacleTypes obstacleType;
-    [SerializeField] private float speed = 10f;
+    [SerializeField] public float speed = 10f;
     [SerializeField] private bool canTurn = true;
-    [SerializeField] private bool avoidHittingPlayer = true;
-    [SerializeField] private float avoidanceDeceleration = 2f;
-    [SerializeField] private AudioClip warningSound;
-    [SerializeField] private AudioClip hitSound;
+    [SerializeField] public bool avoidHittingPlayer = true;
+    [SerializeField] public float avoidanceDeceleration = 2f;
+    [SerializeField] public AudioClip warningSound;
+    [SerializeField] public AudioClip hitSound;
 
     private AudioSource audioSource;
     private Rigidbody2D rigidBody;
@@ -23,7 +23,7 @@ public class Obstacle : MonoBehaviour
     public Vector2 moveDirection = new Vector2(-1, 0);
     private bool hasBegunMoving = false;
     private bool isTurning = false;
-    private float currentSpeed = 0f;
+    public float currentSpeed = 0f;
 
     private float creationTime = 0f;
 
@@ -43,7 +43,7 @@ public class Obstacle : MonoBehaviour
             if (hitSound != null) {
                 audioSource.PlayOneShot(hitSound);
             }
-            Game.Instance.StartGameOver();
+            Game.Instance.StartGameOver(other.gameObject);
         }
     }
 
@@ -117,6 +117,17 @@ public class Obstacle : MonoBehaviour
 
         rigidBody.velocity = moveDirection * currentSpeed;
     }
+
+    public void StopMoving() {
+        hasBegunMoving = false;
+        rigidBody.velocity = Vector2.zero;
+    }
+
+    public void ResumeMoving() {
+        hasBegunMoving = true;
+        rigidBody.velocity = moveDirection * currentSpeed;
+    }
+
 
     public void Turn(Vector2 direction) {
         if (!canTurn) {

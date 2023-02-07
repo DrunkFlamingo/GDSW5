@@ -14,9 +14,9 @@ TagManager:
   - UI
   - Obstacles
   - Turners
-  - 
-  - 
-  - 
+  - Ice
+  - Wall
+  - PostProcessor
   - 
   - 
   - 
@@ -39,11 +39,17 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: HiddenWalls
+    uniqueID: 1529934455
+    locked: 0
   - name: Bkacground
     uniqueID: 2529880295
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Effects
+    uniqueID: 1475241181
     locked: 0
   - name: Player
     uniqueID: 3132271125
@@ -51,6 +57,6 @@ TagManager:
   - name: Obstacles
     uniqueID: 4047251987
     locked: 0
-  - name: Effects
-    uniqueID: 1475241181
+  - name: UI
+    uniqueID: 4250193267
     locked: 0

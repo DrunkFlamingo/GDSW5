@@ -14,7 +14,7 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] float alternateObstacleSpawnChance = 20f; // the chance that an alternate obstacle will spawn instead of the normal obstacle.
     [SerializeField] Vector2 obstacleMoveDirection = new Vector2(-1, 0); // the direction the obstacle will move in.
  
-    float lastSpawnTime = -99f;
+    float lastSpawnTime = 0f;
 
     public void SpawnObstacle() {
         GameObject obstacleToSpawn = obstaclePrefab;
@@ -29,11 +29,16 @@ public class ObstacleSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if (spawnOverTime) {
-           if (Time.time - lastSpawnTime > spawnRate) {
-               SpawnObstacle();
-               lastSpawnTime = Time.time;
-           }
-       }
+        if (Game.Instance.gameIsOver) {
+            lastSpawnTime = lastSpawnTime + Time.deltaTime;
+            return;
+        }
+        Debug.DrawLine(transform.position, transform.position + new Vector3(obstacleMoveDirection.x*25, obstacleMoveDirection.y*25, 0), Color.green);
+        if (spawnOverTime) {
+            if (Time.time - lastSpawnTime > spawnRate) {
+                SpawnObstacle();
+                lastSpawnTime = Time.time;
+            }
+        }
     }
 }
