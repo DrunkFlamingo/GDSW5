@@ -87,7 +87,7 @@ public class ObstacleHitbox : MonoBehaviour
         Debug.DrawRay(transform.position, moveDirection * checkDist, Color.red);
         (bool shouldSlowDown, bool hitPlayer) = ShouldSlowDown(hits);
         if (shouldSlowDown) {
-            Debug.Log("Obstacle " + this.name + " is about to hit " + hits[0].collider.gameObject.name);
+            Debug.Log("Obstacle " + this.obstacle.name + " is about to hit " + hits[0].collider.gameObject.name);
             if (hitPlayer && warningSound != null && hasAlreadyWarned == false) {
                 audioSource.PlayOneShot(warningSound);
                 hasAlreadyWarned = true;
@@ -96,11 +96,9 @@ public class ObstacleHitbox : MonoBehaviour
             if (!hitPlayer) obstacleMinSpeed = 0;
             if (avoidHittingPlayer || !hitPlayer) {
                 obstacle.currentSpeed = Mathf.Max(obstacle.currentSpeed - (obstacle.avoidanceDeceleration*Time.deltaTime), obstacleMinSpeed);
-                rigidBody.velocity = moveDirection * obstacle.currentSpeed;
             }
         } else if (obstacle.currentSpeed < obstacle.speed) {
             obstacle.currentSpeed = Mathf.Min(obstacle.currentSpeed + (obstacle.avoidanceDeceleration*2 *Time.deltaTime), obstacle.speed);
-            rigidBody.velocity = moveDirection * obstacle.currentSpeed;
         }
     }
 }

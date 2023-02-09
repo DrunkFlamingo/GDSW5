@@ -30,8 +30,11 @@ public class Game : MonoBehaviour
         {
             Instance = this;
         }
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         audioSource = gameObject.AddComponent<AudioSource>();
+        foreach (GameObject button in postGameButtons) {
+            button.SetActive(false);
+        }
     }
 
     void Start()
@@ -81,8 +84,14 @@ public class Game : MonoBehaviour
         }
         gameIsOver = true;
         Debug.Log("StartGameOver");
-
+        player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         StartCoroutine(BloodPuddle(player));
+
+        Obstacle[] obstacles = FindObjectsOfType<Obstacle>();
+        foreach (Obstacle obstacle in obstacles) {
+            obstacle.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        }
+
         foreach (GameObject button in postGameButtons) {
             button.SetActive(true);
         }
@@ -95,28 +104,31 @@ public class Game : MonoBehaviour
 
     IEnumerator ResumeAfterRewind() {
         yield return new WaitForSeconds(rewindTime+snapShotInterval);
+                Intersection[] intersections = FindObjectsOfType<Intersection>();
+        foreach (Intersection intersection in intersections) {
+            intersection.UpdateIntersectionAfterRewind();
+        }
         gameIsOver = false;
+
     }
 
     public void RewindGame() {
         Debug.Log("RewindGame");
         gameIsOver = true;
-        LoadScene("MainGame");
-        /*foreach (GameObject button in postGameButtons) {
+        //LoadScene("MainGame");
+        foreach (GameObject button in postGameButtons) {
             button.SetActive(false);
         }
-        Rewindable[] rewindables = FindObjectsOfType<Rewindable>();
-        foreach (Rewindable rewindable in rewindables) {
-            rewindable.Rewind();
+        StartCoroutine(Player.Instance.Rewind());
+        Obstacle[] obstacles = FindObjectsOfType<Obstacle>();
+        foreach (Obstacle obstacle in obstacles) {
+            StartCoroutine(obstacle.Rewind());
         }
-        Intersection[] intersections = FindObjectsOfType<Intersection>();
-        foreach (Intersection intersection in intersections) {
-            intersection.Rewind();
-        }
-        StartCoroutine(BloodPuddle(GameObject.Find("PlayerCharacter"), true));
+
+
         StartCoroutine(ResumeAfterRewind());
-        //StartCoroutine(LoadScene("LoseGame", 5f));
-        */
+        StartCoroutine(BloodPuddle(GameObject.Find("PlayerCharacter"), true));
+
     }
 
     public void ContinueGame() {

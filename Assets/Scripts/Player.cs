@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+
 public class Player : MonoBehaviour
 {
 
@@ -29,7 +32,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float cameraFollowSpeed = 3f;
     [SerializeField] private float cameraYOffset = 0f;
 
-    public Player Instance { get; private set; }
+    public static Player Instance { get; private set; }
 
     private Game game;
     private Rigidbody2D rigidBody;
@@ -39,11 +42,32 @@ public class Player : MonoBehaviour
     private Vector2 targetPosition;
     public Vector2 movementVector;
     new private Collider2D collider;
-    private bool isMoving = false;
+    public bool isMoving = false;
     private bool wasSlipping = false;
     private bool lastMoveWasHorizontal = false;
     private bool hadVerticalKeyLastFrame = false;
     private bool hadHorizontalKeyLastFrame = false;
+    public struct PlayerRewindSnapshot {
+        public Vector3 position;
+        public Vector2 direction;
+        public Vector2 velocity;
+        public bool isMoving;
+        public bool wasSlipping;
+        public Vector2 previousPosition;
+        public Vector2 targetPosition;
+
+        public PlayerRewindSnapshot(Vector3 position, Vector2 direction, Vector2 velocity, bool isMoving, bool wasSlipping, Vector2 previousPosition, Vector2 targetPosition) {
+            this.position = position;
+            this.direction = direction;
+            this.velocity = velocity;
+            this.isMoving = isMoving;
+            this.wasSlipping = wasSlipping;
+            this.previousPosition = previousPosition;
+            this.targetPosition = targetPosition;
+        }
+    }
+    public List<PlayerRewindSnapshot> snapshots = new List<PlayerRewindSnapshot>();
+    private float snapshotTimer = 0f;
 
     // Start is called before the first frame update
 
@@ -120,9 +144,6 @@ public class Player : MonoBehaviour
     }
 
     void StartMovement() {
-        if (Game.Instance.gameIsOver) {
-            return;
-        }
        // player moves in segments, pokemon style.
        // player can only move in one direction at a time.
        // if the player holds two keys down, they will move in the direction of the last key pressed.
@@ -160,11 +181,6 @@ public class Player : MonoBehaviour
     // move the player towards the target position.
     // if they have reached it, set isMoving to false.
     void UpdateMovement(bool dontRecursivelyCall = false) {
-        if (Game.Instance.gameIsOver) {
-            rigidBody.velocity = Vector2.zero;
-            isMoving = false;
-            return;
-        }
         float currentMoveSpeed = Mathf.Abs(rigidBody.velocity.y);
         float distance = Vector2.Distance(transform.position, targetPosition);
         bool hasReachedTarget = distance < movementTargetError;
@@ -191,7 +207,7 @@ public class Player : MonoBehaviour
         }
         bool isOnIce = InContactWithIce();
         if (isOnIce) {
-            Debug.Log("Player is on ice.");
+            //Debug.Log("Player is on ice.");
             wasSlipping = true;
         } 
         if ((hasReachedTarget && !isOnIce) || (!isOnIce && wasSlipping)) {
@@ -221,11 +237,57 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (game.gameIsOver) {
+            return;
+        }
         if (isMoving) {
             UpdateMovement();
         } else {
             StartMovement();
         }
         UpdateCameraPosition();
+        
+        if (snapshotTimer <= 0) {
+            TakeRewindSnapshot();
+            snapshotTimer = game.snapShotInterval;
+        } else {
+            snapshotTimer -= Time.deltaTime;
+        }
     }
+
+    public IEnumerator Rewind() {
+        Debug.Log("Rewinding player...");
+        int numSnapshots = (int) Mathf.Min( snapshots.Count, game.rewindTime / game.snapShotInterval);
+        Debug.Log("Number of snapshots: " + numSnapshots);
+        for (int i = snapshots.Count - 1 ; i >= snapshots.Count - numSnapshots; i--) {
+            PlayerRewindSnapshot snapshot = snapshots[i];
+            Debug.Log("Rewinding to snapshot: " + i);
+            Debug.Log("Rewinding to position: " + snapshot.position + " with turning: " + snapshot.direction.x + ", " + snapshot.direction.y);
+            this.gameObject.transform.position = snapshot.position;
+            movementVector = snapshot.direction;
+            SetSpriteOrientation(movementVector);
+            rigidBody.velocity = Vector2.zero;
+            isMoving = false;
+            wasSlipping = false;
+            previousPosition = snapshot.position;
+            targetPosition = snapshot.position;
+            
+            yield return new WaitForSeconds(game.snapShotInterval);
+        }
+        Debug.Log("Finished rewinding.");
+        for (int i = 0; i < numSnapshots; i++) {
+            snapshots.RemoveAt(snapshots.Count - 1);
+        }
+    }
+
+    void TakeRewindSnapshot() {
+        float snapShotInterval = game.snapShotInterval;
+        float rewindTime = game.rewindTime;
+        int numSnapshots = (int)(rewindTime / snapShotInterval)*3;
+        if (snapshots.Count >= numSnapshots) {
+            snapshots.RemoveAt(0);
+        }
+        snapshots.Add(new PlayerRewindSnapshot(transform.position, movementVector, rigidBody.velocity, isMoving, wasSlipping, previousPosition, targetPosition));
+    }
+
 }

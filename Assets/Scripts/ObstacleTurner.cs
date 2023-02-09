@@ -25,6 +25,7 @@ public class ObstacleTurner : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other) {
+        if (Game.Instance.gameIsOver) return;
         if (other.gameObject.tag == "Obstacle") {
             TurnIfTypeMatches(other.gameObject.GetComponent<Obstacle>());
         }

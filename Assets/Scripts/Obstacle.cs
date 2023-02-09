@@ -4,6 +4,27 @@ using UnityEngine;
 
 public enum ObstacleTypes {Car, Taxi, Bike, Any}
 
+public struct ObstacleRewindSnapshot {
+    public Vector3 position;
+    public Vector2 moveDirection;
+    public bool hasBegunMoving;
+    public bool isTurning;
+    public float currentSpeed;
+    public bool isStoppedAtIntersection;
+
+    public Vector2 velocity;
+
+    public ObstacleRewindSnapshot(Vector3 position, Vector2 moveDirection, bool hasBegunMoving, bool isTurning, float currentSpeed, Vector2 velocity, bool isStoppedAtIntersection) {
+        this.position = position;
+        this.moveDirection = moveDirection;
+        this.hasBegunMoving = hasBegunMoving;
+        this.isTurning = isTurning;
+        this.currentSpeed = currentSpeed;
+        this.velocity = velocity;
+        this.isStoppedAtIntersection = isStoppedAtIntersection;
+    }
+}
+
 public class Obstacle : MonoBehaviour
 {
     // handles movement and collision interactions for an obstacle object.
@@ -21,11 +42,15 @@ public class Obstacle : MonoBehaviour
     private Rigidbody2D rigidBody;
     new private Collider2D collider;
     public Vector2 moveDirection = new Vector2(-1, 0);
-    private bool hasBegunMoving = false;
+    public bool isMoving = false;
+    public bool isStoppedAtIntersection = false;
     private bool isTurning = false;
     public float currentSpeed = 0f;
 
     private float creationTime = 0f;
+
+    public List<ObstacleRewindSnapshot> rewindSnapshots = new List<ObstacleRewindSnapshot>();
+    private float rewindSnapshotTimer = 0f;
 
     void Awake()
     {
@@ -66,35 +91,50 @@ public class Obstacle : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    public IEnumerator Rewind() {
+        int numSnapshots = (int) Mathf.Min( rewindSnapshots.Count,  Game.Instance.rewindTime /  Game.Instance.snapShotInterval) ;
+        for (int i = rewindSnapshots.Count - 1 ; i >= rewindSnapshots.Count - numSnapshots; i--) {
+            ObstacleRewindSnapshot snapshot = rewindSnapshots[i];
+            //Debug.Log("Rewinding "+gameObject.name+" to snapshot: " + i);
+            //Debug.Log("Rewinding to position: " + snapshot.position + " with turning: " + snapshot.moveDirection.x + ", " + snapshot.moveDirection.y);
+            this.gameObject.transform.position = snapshot.position;
+            SetRotation(snapshot.moveDirection);
+            moveDirection = snapshot.moveDirection;
+            isMoving = snapshot.hasBegunMoving;
+            isTurning = snapshot.isTurning;
+            currentSpeed = snapshot.currentSpeed;
+            isStoppedAtIntersection = snapshot.isStoppedAtIntersection;
+            yield return new WaitForSeconds(Game.Instance.snapShotInterval);
+        }
+        for (int i = 0; i < numSnapshots; i++) {
+            rewindSnapshots.RemoveAt(rewindSnapshots.Count - 1);
+        }
+
+    }
+
 
     void Update()
     {
-        if (!avoidHittingPlayer) {
+        if (Game.Instance.gameIsOver) {
             return;
         }
-        // cast the collider in the direction we are travelling to see if we are about to hit the player.
-        // if we are, play a warning sound and reduce our speed by avoidanceDeceleration until it is at 1/5;
-        
-        List<RaycastHit2D> hits = new List<RaycastHit2D>();
-        ContactFilter2D filter = new ContactFilter2D();
-        //filter.SetLayerMask(LayerMask.GetMask("Player", "Obstacles"));
-        filter.SetLayerMask(LayerMask.GetMask("Player"));
-        float checkDist = speed * 0.5f;
-        int numHits = collider.Cast(moveDirection, filter, hits, checkDist);
-        Debug.DrawRay(transform.position, moveDirection * checkDist, Color.red);
-        (bool shouldSlowDown, bool hitPlayer) = ShouldSlowDown(hits);
-        if (shouldSlowDown) {
-            Debug.Log("Obstacle " + this.name + " is about to hit " + hits[0].collider.gameObject.name);
-            if (hitPlayer && warningSound != null) {
-                audioSource.PlayOneShot(warningSound);
-            }
-            currentSpeed = Mathf.Max(currentSpeed - (avoidanceDeceleration*Time.deltaTime), speed/5);
-            rigidBody.velocity = moveDirection * currentSpeed;
-        } else if (currentSpeed < speed) {
-            currentSpeed = Mathf.Min(currentSpeed + (avoidanceDeceleration*2 *Time.deltaTime), speed);
+        if (isMoving) {
             rigidBody.velocity = moveDirection * currentSpeed;
         }
-      
+
+        if (rewindSnapshotTimer <= 0) {
+            int numSnapshots = (int)(Game.Instance.rewindTime / Game.Instance.snapShotInterval) *3;
+            if (rewindSnapshots.Count >= numSnapshots) {
+                rewindSnapshots.RemoveAt(0);
+            }
+
+            rewindSnapshots.Add(new ObstacleRewindSnapshot(transform.position, moveDirection, isMoving, isTurning, currentSpeed, rigidBody.velocity, isStoppedAtIntersection));
+            rewindSnapshotTimer = Game.Instance.snapShotInterval;
+        } else {
+            rewindSnapshotTimer -= Time.deltaTime;
+        }
+
+
     }
 
     void SetRotation(Vector2 direction) {
@@ -112,19 +152,21 @@ public class Obstacle : MonoBehaviour
 
     public void StartMoving(Vector2 direction) {
         SetRotation(direction);
-        hasBegunMoving = true;
+        isMoving = true;
         currentSpeed = speed;
 
         rigidBody.velocity = moveDirection * currentSpeed;
     }
 
     public void StopMoving() {
-        hasBegunMoving = false;
+        isMoving = false;
+        isStoppedAtIntersection = true;
         rigidBody.velocity = Vector2.zero;
     }
 
     public void ResumeMoving() {
-        hasBegunMoving = true;
+        isMoving = true;
+        isStoppedAtIntersection = false;
         rigidBody.velocity = moveDirection * currentSpeed;
     }
 

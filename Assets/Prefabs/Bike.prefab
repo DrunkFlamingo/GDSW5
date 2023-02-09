@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5320180006678283828}
   - component: {fileID: 1614504167804565386}
   - component: {fileID: 2480264300854652624}
-  - component: {fileID: -3751864765565988208}
   m_Layer: 6
   m_Name: Bike
   m_TagString: Obstacle
@@ -129,10 +128,6 @@ MonoBehaviour:
   avoidanceDeceleration: 2
   warningSound: {fileID: 8300000, guid: 8678dcf70f1f4fb44b8144c519fece1b, type: 3}
   hitSound: {fileID: 8300000, guid: 69f98cb082e2fea46bda7648e6f79d51, type: 3}
-  upSprite: {fileID: 21300000, guid: e7776420e9b1990469375de635d25d0d, type: 3}
-  downSprite: {fileID: 21300000, guid: 183a3b87d91c04043bd52ed44b75b43d, type: 3}
-  leftSprite: {fileID: 21300000, guid: 1709ea446acb5a241acaec731a0a2a42, type: 3}
-  rightSprite: {fileID: 21300000, guid: cdc8350b7498ba04580c65a29264467a, type: 3}
   moveDirection: {x: -1, y: 0}
   currentSpeed: 0
 --- !u!61 &2480264300854652624
@@ -161,20 +156,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1753844, y: 3.1202502}
   m_EdgeRadius: 0
---- !u!114 &-3751864765565988208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1446906574054893219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed80fdf5b6ba0cf4c8d63f6c9f516588, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rewindTime: 5
-  snapShotInterval: 0.1
 --- !u!1 &8728355449491245565
 GameObject:
   m_ObjectHideFlags: 0

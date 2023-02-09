@@ -198,6 +198,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 630645339, guid: 48fd02dcbbdc93441b01b9582523dbc1, type: 3}
+      propertyPath: nextScene
+      value: MainScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 630645339, guid: 48fd02dcbbdc93441b01b9582523dbc1, type: 3}
+      propertyPath: dialogueLines.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 630645339, guid: 48fd02dcbbdc93441b01b9582523dbc1, type: 3}
+      propertyPath: dialogueLines.Array.data[0]
+      value: This is a really bad headache.
+      objectReference: {fileID: 0}
+    - target: {fileID: 630645339, guid: 48fd02dcbbdc93441b01b9582523dbc1, type: 3}
+      propertyPath: dialogueLines.Array.data[1]
+      value: ...
+      objectReference: {fileID: 0}
+    - target: {fileID: 630645339, guid: 48fd02dcbbdc93441b01b9582523dbc1, type: 3}
+      propertyPath: dialogueLines.Array.data[2]
+      value: Maybe I should see a Doctor.
+      objectReference: {fileID: 0}
+    - target: {fileID: 630645339, guid: 48fd02dcbbdc93441b01b9582523dbc1, type: 3}
+      propertyPath: dialogueLines.Array.data[4]
+      value: I hope my insurance covers it.
+      objectReference: {fileID: 0}
     - target: {fileID: 4374495784249915451, guid: 48fd02dcbbdc93441b01b9582523dbc1, type: 3}
       propertyPath: m_Name
       value: PlotScreenTemplate

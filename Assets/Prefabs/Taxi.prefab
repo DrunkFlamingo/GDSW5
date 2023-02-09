@@ -85,7 +85,6 @@ GameObject:
   - component: {fileID: 3359641776829646205}
   - component: {fileID: 1579164997054394390}
   - component: {fileID: 2345018568326965477}
-  - component: {fileID: 3415781776665433584}
   m_Layer: 6
   m_Name: Taxi
   m_TagString: Obstacle
@@ -201,10 +200,6 @@ MonoBehaviour:
   avoidanceDeceleration: 2
   warningSound: {fileID: 8300000, guid: f717b9bd4c42dd045ba25979d1eb5353, type: 3}
   hitSound: {fileID: 8300000, guid: 9b77b63a01ebc22499ee1c1e10626b32, type: 3}
-  upSprite: {fileID: 21300000, guid: f2f13e1dc73dd7c45ba4e9ea78b1583c, type: 3}
-  downSprite: {fileID: 21300000, guid: 61659caf99fcc29479e164db88f0a6e4, type: 3}
-  leftSprite: {fileID: 21300000, guid: 13a4356d908c68348b063cfd23eeb4de, type: 3}
-  rightSprite: {fileID: 21300000, guid: ea33c62140a599e4396aa16ba9748ef9, type: 3}
   moveDirection: {x: -1, y: 0}
   currentSpeed: 0
 --- !u!61 &2345018568326965477
@@ -233,17 +228,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.4228404, y: 2.1947317}
   m_EdgeRadius: 0
---- !u!114 &3415781776665433584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7612918423109702581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed80fdf5b6ba0cf4c8d63f6c9f516588, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rewindTime: 5
-  snapShotInterval: 0.1

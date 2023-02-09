@@ -130,6 +130,50 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 630645339, guid: 48fd02dcbbdc93441b01b9582523dbc1, type: 3}
+      propertyPath: nextScene
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 630645339, guid: 48fd02dcbbdc93441b01b9582523dbc1, type: 3}
+      propertyPath: dialogueLines.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 630645339, guid: 48fd02dcbbdc93441b01b9582523dbc1, type: 3}
+      propertyPath: dialogueLines.Array.data[0]
+      value: You are treated at the hospital
+      objectReference: {fileID: 0}
+    - target: {fileID: 630645339, guid: 48fd02dcbbdc93441b01b9582523dbc1, type: 3}
+      propertyPath: dialogueLines.Array.data[1]
+      value: ...
+      objectReference: {fileID: 0}
+    - target: {fileID: 630645339, guid: 48fd02dcbbdc93441b01b9582523dbc1, type: 3}
+      propertyPath: dialogueLines.Array.data[2]
+      value: You were deficient in vitamin D.
+      objectReference: {fileID: 0}
+    - target: {fileID: 630645339, guid: 48fd02dcbbdc93441b01b9582523dbc1, type: 3}
+      propertyPath: dialogueLines.Array.data[4]
+      value: Your insurance didn't cover it.
+      objectReference: {fileID: 0}
+    - target: {fileID: 630645339, guid: 48fd02dcbbdc93441b01b9582523dbc1, type: 3}
+      propertyPath: dialogueLines.Array.data[5]
+      value: You go bankrupt, drop out of university, and return to your home country.
+      objectReference: {fileID: 0}
+    - target: {fileID: 630645339, guid: 48fd02dcbbdc93441b01b9582523dbc1, type: 3}
+      propertyPath: dialogueLines.Array.data[6]
+      value: You find a job working at a factory.
+      objectReference: {fileID: 0}
+    - target: {fileID: 630645339, guid: 48fd02dcbbdc93441b01b9582523dbc1, type: 3}
+      propertyPath: dialogueLines.Array.data[7]
+      value: As a janitor.
+      objectReference: {fileID: 0}
+    - target: {fileID: 630645339, guid: 48fd02dcbbdc93441b01b9582523dbc1, type: 3}
+      propertyPath: dialogueLines.Array.data[8]
+      value: Your children are disappointments.
+      objectReference: {fileID: 0}
+    - target: {fileID: 630645339, guid: 48fd02dcbbdc93441b01b9582523dbc1, type: 3}
+      propertyPath: dialogueLines.Array.data[9]
+      value: Your funeral is poorly attended.
+      objectReference: {fileID: 0}
     - target: {fileID: 4374495784249915451, guid: 48fd02dcbbdc93441b01b9582523dbc1, type: 3}
       propertyPath: m_Name
       value: PlotScreenTemplate
